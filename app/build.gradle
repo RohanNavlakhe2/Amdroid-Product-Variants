@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "com.example.androidproductflavours"
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //Flavor Dimensions allow us to define groups of flavors
+    //Here we're making two flavours
+    //applicationIdSuffix allows us to place these two variants as seperate apps on playstore
+    /** Paste Below code*/
+    flavorDimensions "icecream"
+    productFlavors {
+        strawberry {
+            dimension "icecream"
+            applicationIdSuffix ".strawberry"
+        }
+        chocolate {
+            dimension "icecream"
+            applicationIdSuffix ".chocolate"
+        }
+
+    }
+
+    //Don't paste this code (It will be generated automatically when you will crate java or res directory
+    //inside some variant
+    sourceSets {
+        strawberry {
+            resources {
+                srcDirs 'src/strawberry/resources', 'src/strawberry/res/'
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
